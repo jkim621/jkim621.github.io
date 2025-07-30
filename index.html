@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .section {
+            display: none;
+            padding: 3rem 0;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Section */
+        .home-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .profile-section {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #666;
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info h2 {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: normal;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #2980b9;
+        }
+
+        /* CV Section */
+        .cv-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cv-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .cv-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .cv-item h3 {
+            color: #34495e;
+            margin-bottom: 0.3rem;
+        }
+
+        .cv-item .date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Publications Section */
+        .publication-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .publication-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .publication-item h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-item .authors {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .publication-item .venue {
+            color: #3498db;
+            font-style: italic;
+        }
+
+        /* News Section */
+        .news-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .news-item .date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-item h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Your Name</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#cv" class="nav-link" data-section="cv">CV</a></li>
+                <li><a href="#publications" class="nav-link" data-section="publications">Publications</a></li>
+                <li><a href="#news" class="nav-link" data-section="news">News</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="home-content">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        Photo
+                    </div>
+                    <div class="profile-info">
+                        <h1>Your Name</h1>
+                        <h2>Ph.D. Student / Researcher</h2>
+                        <p>안녕하세요! 저는 [분야]를 연구하는 [소속]의 연구원입니다.</p>
+                        <p>주요 연구 관심사는 [관심분야1], [관심분야2], [관심분야3] 입니다.</p>
+                        <div class="social-links">
+                            <a href="mailto:your.email@example.com">Email</a>
+                            <a href="https://github.com/yourusername">GitHub</a>
+                            <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
+                            <a href="https://scholar.google.com/citations?user=YOURID">Google Scholar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CV Section -->
+        <section id="cv" class="section">
+            <div class="cv-section">
+                <h2>교육</h2>
+                <div class="cv-item">
+                    <h3>박사과정 - 컴퓨터공학</h3>
+                    <p class="date">2020 - 현재</p>
+                    <p>○○대학교, 서울</p>
+                    <p>지도교수: 홍길동 교수님</p>
+                </div>
+                <div class="cv-item">
+                    <h3>학사 - 컴퓨터공학</h3>
+                    <p class="date">2016 - 2020</p>
+                    <p>○○대학교, 서울</p>
+                    <p>성적: 4.3/4.5 (Summa Cum Laude)</p>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2>경력</h2>
+                <div class="cv-item">
+                    <h3>연구 인턴</h3>
+                    <p class="date">2019.06 - 2019.08</p>
+                    <p>○○ Research Lab</p>
+                    <p>머신러닝 모델 개발 및 데이터 분석</p>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2>수상 및 장학금</h2>
+                <div class="cv-item">
+                    <h3>최우수 논문상</h3>
+                    <p class="date">2023</p>
+                    <p>한국컴퓨터학회 학술대회</p>
+                </div>
+                <div class="cv-item">
+                    <h3>대학원 연구 장학금</h3>
+                    <p class="date">2020 - 현재</p>
+                    <p>○○대학교</p>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2>기술 스택</h2>
+                <div class="cv-item">
+                    <p><strong>프로그래밍 언어:</strong> Python, JavaScript, C++, Java</p>
+                    <p><strong>머신러닝/딥러닝:</strong> TensorFlow, PyTorch, Scikit-learn</p>
+                    <p><strong>웹 개발:</strong> React, Node.js, Django</p>
+                    <p><strong>기타:</strong> Git, Docker, AWS, LaTeX</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section">
+            <h2 style="margin-bottom: 2rem;">Publications</h2>
+            
+            <div class="publication-item">
+                <h3>제목: 딥러닝을 활용한 이미지 분류 성능 향상 연구</h3>
+                <p class="authors">홍길동, <strong>Your Name</strong>, 김철수</p>
+                <p class="venue">한국컴퓨터학회 논문지, 2023</p>
+            </div>
+
+            <div class="publication-item">
+                <h3>Title: Improving Natural Language Processing with Transformer Models</h3>
+                <p class="authors"><strong>Your Name</strong>, John Doe, Jane Smith</p>
+                <p class="venue">International Conference on Machine Learning (ICML), 2022</p>
+            </div>
+
+            <div class="publication-item">
+                <h3>Title: A Novel Approach to Computer Vision</h3>
+                <p class="authors">김영희, <strong>Your Name</strong></p>
+                <p class="venue">Computer Vision and Pattern Recognition (CVPR), 2021</p>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <h2 style="margin-bottom: 2rem;">News & Updates</h2>
+            
+            <div class="news-item">
+                <p class="date">2024년 3월</p>
+                <h3>ICML 2024 논문 채택!</h3>
+                <p>저희 연구팀의 논문이 ICML 2024에 채택되었습니다. 7월 비엔나에서 발표 예정입니다.</p>
+            </div>
+
+            <div class="news-item">
+                <p class="date">2024년 1월</p>
+                <h3>새로운 프로젝트 시작</h3>
+                <p>AI 기반 헬스케어 프로젝트를 시작했습니다. 향후 3년간 진행될 예정입니다.</p>
+            </div>
+
+            <div class="news-item">
+                <p class="date">2023년 11월</p>
+                <h3>최우수 논문상 수상</h3>
+                <p>한국컴퓨터학회 추계학술대회에서 최우수 논문상을 수상했습니다.</p>
+            </div>
+
+            <div class="news-item">
+                <p class="date">2023년 9월</p>
+                <h3>Google Research 인턴십</h3>
+                <p>2024년 여름 Google Research에서 인턴십을 진행하게 되었습니다.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Name. All rights reserved. | Last updated: March 2024</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
